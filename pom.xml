@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>paymybuddy</groupId>
 	<artifactId>application</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>application</name>
 	<description>App project for Pay My Buddy</description>
 	<properties>
