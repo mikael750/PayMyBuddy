@@ -1,9 +1,7 @@
 package com.paymybuddy.application.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
@@ -14,12 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfiguration {
 
+    /**
+     * Store the user details
+     *
+     * @return InMemoryUserDetailsManager
+     */
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user1 = User.withUsername("appUser")
@@ -34,7 +35,10 @@ public class SpringSecurityConfig extends WebSecurityConfiguration {
     }
 
     /**
-     * @param http
+     * Secure the http access according to the roles
+     *
+     * @param http HttpSecurity
+     * @return http
      * @throws Exception
      */
     @Bean
@@ -44,12 +48,17 @@ public class SpringSecurityConfig extends WebSecurityConfiguration {
                 .antMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .oauth2Login();
         return http.build();
     }
 
+
     /**
-     * @return
+     *Bcrypt uses hash algorithm to store password
+     *
+     * @return passwordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder(){
