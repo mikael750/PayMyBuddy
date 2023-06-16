@@ -1,5 +1,6 @@
 package com.paymybuddy.application.configuration;
 
+import com.paymybuddy.application.repository.UserAccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,29 +16,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfiguration {
-/*
-    /**
-     * Store the user details
-     *
-     * @return InMemoryUserDetailsManager
-     *
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user1 = User.withUsername("appUser")
-                .password(passwordEncoder().encode("user123"))
-                .roles("USER")
-                .build();
-        UserDetails admin = User.withUsername("appAdmin")
-                .password(passwordEncoder().encode("admin123"))
-                .roles("ADMIN","USER")
-                .build();
-        return new InMemoryUserDetailsManager(user1, admin);
-    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+
+
+    @Bean
+    public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository){
+        return new CustomUserDetailsService(userAccountRepository);
     }
 
     /**
