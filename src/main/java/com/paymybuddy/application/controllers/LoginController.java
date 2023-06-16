@@ -2,12 +2,10 @@ package com.paymybuddy.application.controllers;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +15,9 @@ import java.security.Principal;
 import java.util.Map;
 
 @RestController
-public class loginController {
+public class LoginController {
 
-    public loginController(OAuth2AuthorizedClientService authorizedClientService) {
+    public LoginController(OAuth2AuthorizedClientService authorizedClientService) {
     }
     @RolesAllowed("USER")
     @RequestMapping("/**")
