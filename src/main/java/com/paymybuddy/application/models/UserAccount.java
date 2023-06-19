@@ -1,22 +1,20 @@
 package com.paymybuddy.application.models;
 
 import com.paymybuddy.application.DTO.UserDTO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAccount {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,7 +41,6 @@ public class UserAccount {
         this.setLastName(userDTO.getLastName());
         this.setEmail(userDTO.getEmail());
         this.setBank(userDTO.getBank());
-        //encrypt password
         this.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }
 }
