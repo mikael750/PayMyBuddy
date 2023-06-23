@@ -2,10 +2,12 @@ package com.paymybuddy.application.models;
 
 import com.paymybuddy.application.DTO.UserDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table
@@ -32,6 +34,9 @@ public class UserAccount {
     private String password;
 
     @Column(nullable = false)
+    private Date birthday;
+
+    @Column(nullable = false)
     private String bank;
 
     private BigDecimal solde = BigDecimal.valueOf(0);
@@ -41,6 +46,7 @@ public class UserAccount {
         this.setLastName(userDTO.getLastName());
         this.setEmail(userDTO.getEmail());
         this.setBank(userDTO.getBank());
+        this.setBirthday(userDTO.getBirthday());
         this.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }
 }

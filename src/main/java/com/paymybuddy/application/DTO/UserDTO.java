@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,9 @@ public class UserDTO {
 
     @NotEmpty
     private String password;
+
+    @NotEmpty
+    private Date birthday;
 
     @NotEmpty
     private String bank;
