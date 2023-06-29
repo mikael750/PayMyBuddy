@@ -1,0 +1,37 @@
+.nav-item
+{
+    display: flex;
+    flex-direction: row;
+}
+.navbar
+{
+    background-color: green;
+}
+.page
+{
+    display: flex;
+    flex-direction: row;
+}
+.pagination
+{
+    margin-left: 5px;
+}
+.error
+{
+    color: red;
+}
+.table-dark th
+{
+    --bs-table-bg: green;
+}
+.card-headers
+{
+    background-color: green;
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .1)
+}
+.card-headers h2
+{
+    color: white;
+}
