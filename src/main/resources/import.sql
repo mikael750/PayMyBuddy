@@ -5,8 +5,8 @@ insert into user( FIRST_NAME, LAST_NAME, PASSWORD, EMAIL, BIRTHDATE, SOLDE) valu
 insert into transaction( AMOUNT, TRANSACTION_TYPE, SENDER_ID, RECIEVER_ID, DATE) values ( 50, 'test', (SELECT id from user where email = 'rich@guy.fr'), (SELECT id from user where email = 'jean@michel.fr'), '2023-06-23');
 insert into transaction( AMOUNT, TRANSACTION_TYPE, SENDER_ID, RECIEVER_ID, DATE) values ( 50, 'test', (SELECT id from user where email = 'jean@michel.fr'), (SELECT id from user where email = 'rich@guy.fr'), '2023-06-23');
 
-insert into account( IBAN, BIC) values ("FR4312739000302353653786L28","AXAFAKE");
-insert into account( IBAN, BIC) values ("FR3314508000401791339773H87","MMAFAKE");
-insert into account( IBAN, BIC) values ("FR5814508000408196166348K61","POSFAKE");
+insert into account( IBAN, BIC, AMOUNT) values ("FR4312739000302353653786L28","AXAFAKE",5000);
+insert into account( IBAN, BIC, AMOUNT) values ("FR3314508000401791339773H87","MMAFAKE",2000);
+insert into account( IBAN, BIC, AMOUNT) values ("FR5814508000408196166348K61","POSFAKE",100.50);
 
 insert into user_contact_list(USER_ID, CONTACT_LIST_ID) VALUES (1, (SELECT id from user where email = 'jean@michel.fr'));
