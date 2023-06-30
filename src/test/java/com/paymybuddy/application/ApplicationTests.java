@@ -1,5 +1,6 @@
 package com.paymybuddy.application;
 
+import com.paymybuddy.application.controllers.AuthController;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.paymybuddy.application.controllers.LoginController;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ApplicationTests {
 
 	@Autowired
-	private LoginController controller;
+	private AuthController controller;
 	@Test
 	void contextLoads()throws Exception {
 		assertThat(controller).isNotNull();
