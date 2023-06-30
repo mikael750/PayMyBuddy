@@ -1,7 +1,6 @@
 package com.paymybuddy.application.DTO;
 
 import com.paymybuddy.application.models.Transaction;
-import com.paymybuddy.application.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -23,10 +22,10 @@ public class TransactionDTO {
     private LocalDate date;
 
     public TransactionDTO(Transaction transaction){
-        date = transaction.getDate();
         amount = transaction.getAmount();
         sender = transaction.getSender().getFullName();
         receiver = transaction.getReceiver().getFullName();
         transactionType = transaction.getTransactionType();
+        date = transaction.getDate();
     }
 }
