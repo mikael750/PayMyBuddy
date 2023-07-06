@@ -52,10 +52,19 @@ public class User {
     private List<User> contactList = new ArrayList<>();
 
 
+    /**
+     * retourne le nom et prenom du sender et receiver.
+     * @return firstName lastName
+     */
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
 
+    /**
+     * Ajout un montant d'argent a la solde de l'Utilisateur
+     * @param amount
+     * @return
+     */
     public User creditBalance(BigDecimal amount){
         if (solde.add(amount).compareTo(BigDecimal.ZERO) < 0){
             throw new RuntimeException("la solde n'est pas suffisante");
@@ -64,6 +73,11 @@ public class User {
         return this;
     }
 
+    /**
+     * Retire un montant d'argent a la solde de l'Utilisateur
+     * @param amount
+     * @return
+     */
     public User debitSolde(BigDecimal amount){
         if(amount.compareTo(BigDecimal.ZERO) <= 0 ){
             throw new RuntimeException("la solde ne peut pas etre inferieure ou egal a zero");
@@ -77,6 +91,11 @@ public class User {
         return this;
     }
 
+    /**
+     * Ajout un contact a l'utilisateur
+     * @param user
+     * @return
+     */
     public User addContact(User user){
         if (contactList.contains(user)) {
             throw new RuntimeException(user.getEmail() + " est deja dans vos contactes");
