@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 
@@ -22,12 +23,15 @@ public class MoneyTransferDTO {
 
     String transactionType;
 
+    @Value("${application.fee}")
+    private long valueFee;
+
     /**
-     * Retourne le montant avec la taxe de 5/100
+     * Retourne le montant avec la Commission de 5/100
      * @return amount with fee
      */
     public BigDecimal getAmountWithFee(){
-        final BigDecimal fee = amount.multiply(BigDecimal.valueOf(0.005));
+        final BigDecimal fee = amount.multiply(BigDecimal.valueOf(valueFee));
         return amount.add(fee);
     }
 }
