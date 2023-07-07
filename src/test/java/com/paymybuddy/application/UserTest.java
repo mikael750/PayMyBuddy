@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,8 +19,8 @@ public class UserTest {
 
     @BeforeEach
     public void setUp(){
-        existingUser1 = new User(1, "Jack", "Frost", "test@test.fr", "testMdp", "01/01/2000", BigDecimal.ZERO, null);
-        existingUser2 = new User(1, "John", "Dujardin", "test@test.fr", "testMdp", "01/01/2000", BigDecimal.ONE, null);
+        existingUser1 = new User(1, "Jack", "Frost", "test@test.fr", "testMdp", "01/01/2000", BigDecimal.ZERO, new ArrayList<>());
+        existingUser2 = new User(2, "John", "Dujardin", "test@test.fr", "testMdp", "01/01/2000", BigDecimal.ONE, null);
 
     }
 
@@ -55,6 +56,18 @@ public class UserTest {
 
         //THEN
         assertEquals(BigDecimal.ZERO, existingUser2.getSolde());
+
+    }
+
+    @Test
+    public void addContactTest(){
+        //GIVEN
+
+        //WHEN
+        existingUser1.addContact(existingUser2);
+
+        //THEN
+        assertEquals(existingUser2, existingUser1.getContactList().get(0));
 
     }
 }
