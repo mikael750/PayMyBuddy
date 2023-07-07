@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
     /**
-     * find a user from its email
+     * Trouve un utilisateur avec son email
      * @param email
      * @return
      */
