@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class UserTest {
 
-    @Mock
+
     private static User existingUser1, existingUser2;
 
     @BeforeEach
@@ -37,11 +37,11 @@ public class UserTest {
     }
 
     @Test
-    public void creditSoldeTest(){
+    public void creditBalanceTest(){
         //GIVEN
 
         //WHEN
-        existingUser1.creditSolde(BigDecimal.valueOf(500));
+        existingUser1.creditBalance(BigDecimal.valueOf(500));
         //THEN
         assertEquals(BigDecimal.valueOf(500),existingUser1.getSolde());
 
@@ -52,7 +52,7 @@ public class UserTest {
         //GIVEN
 
         //WHEN
-        existingUser2.debitSolde(BigDecimal.ONE);
+        existingUser2.debitBalance(BigDecimal.ONE);
 
         //THEN
         assertEquals(BigDecimal.ZERO, existingUser2.getSolde());

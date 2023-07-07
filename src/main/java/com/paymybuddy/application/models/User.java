@@ -65,7 +65,7 @@ public class User {
      * @param amount
      * @return
      */
-    public User creditSolde(BigDecimal amount){
+    public User creditBalance(BigDecimal amount){
         if (solde.add(amount).compareTo(BigDecimal.ZERO) < 0){
             throw new RuntimeException("la solde n'est pas suffisante");
         }
@@ -78,7 +78,7 @@ public class User {
      * @param amount
      * @return
      */
-    public User debitSolde(BigDecimal amount){
+    public User debitBalance(BigDecimal amount){
         if(amount.compareTo(BigDecimal.ZERO) <= 0 ){
             throw new RuntimeException("la solde ne peut pas etre inferieure ou egal a zero");
         }
