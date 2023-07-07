@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Entity
 @Data
@@ -37,7 +38,7 @@ public class Transaction {
     public Transaction(MoneyTransferDTO moneyTransferDTO, User sender, User receiver){
         this.originalAmount = moneyTransferDTO.getAmount();
         this.amount = moneyTransferDTO.getAmountWithFee();
-        this.transactionType = moneyTransferDTO.getTransactionType();
+        this.transactionType = Arrays.toString(moneyTransferDTO.getTransactionType());
         this.sender = sender;
         this.receiver= receiver;
         this.date = LocalDate.now();
