@@ -1,5 +1,6 @@
 package com.paymybuddy.application.services;
 
+import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.models.User;
@@ -46,5 +47,13 @@ public interface UserService {
      * @return retourne la solde de l'utilisateur
      */
     BigDecimal getBalance(String email);
+
+    /**
+     * Change la solde de l'utilisateur depuis son compte bancaire
+     * @param accountDto l'info bancaire de la transaction
+     * @param email l'email de l'utilisateur
+     * @return la transaction
+     */
+    User bankTransfer(AccountDTO accountDto, String email);
 
 }

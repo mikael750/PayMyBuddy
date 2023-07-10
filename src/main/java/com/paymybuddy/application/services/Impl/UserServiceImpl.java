@@ -1,5 +1,6 @@
 package com.paymybuddy.application.services.Impl;
 
+import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.models.User;
@@ -82,4 +83,14 @@ public class UserServiceImpl implements UserService {
                 .getSolde();
     }
 
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public User bankTransfer(AccountDTO accountDto, String email) {
+        final User userAccount = findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email))
+                .creditBalance(accountDto.getAmount());
+        return userRepository.save(userAccount);
+    }
 }
