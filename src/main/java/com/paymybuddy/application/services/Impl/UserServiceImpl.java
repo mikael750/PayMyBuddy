@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +70,16 @@ public class UserServiceImpl implements UserService {
                 .addContact(contactToAdd);
 
         return userRepository.save(userAccountToAddContact);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public BigDecimal getBalance(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email))
+                .getSolde();
     }
 
 }

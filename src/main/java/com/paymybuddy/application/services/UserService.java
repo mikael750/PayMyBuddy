@@ -4,6 +4,7 @@ import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.models.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +39,12 @@ public interface UserService {
      * @return le compte d'utilisateur du contact
      */
     User addContact(ContactDTO contactDto, String email);
+
+    /**
+     * Trouve la solde d'un utilisateur
+     * @param email email de l'utilisateur
+     * @return retourne la solde de l'utilisateur
+     */
+    BigDecimal getBalance(String email);
 
 }
