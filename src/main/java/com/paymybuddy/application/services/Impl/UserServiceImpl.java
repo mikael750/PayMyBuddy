@@ -56,5 +56,19 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public User addContact(ContactDTO contactDto, String email) {
+        User contactToAdd = userRepository.findByEmail(contactDto.getEmail())
+                      .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email));
+
+        User userAccountToAddContact = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email))
+                .addContact(contactToAdd);
+
+        return userRepository.save(userAccountToAddContact);
+    }
 
 }

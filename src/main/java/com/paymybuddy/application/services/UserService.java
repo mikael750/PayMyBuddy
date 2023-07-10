@@ -30,4 +30,13 @@ public interface UserService {
      */
     List<ContactDTO> findContactList(String email);
 
+
+    /**
+     * Ajoute un contact a un utilisateur selon son email
+     * @param contactDto l'info du contact a ajouter, qui est seulement l'email et le fullName
+     * @param email l'email de l'utilisateur qu'on ajoute un contact dans leur liste
+     * @return le compte d'utilisateur du contact
+     */
+    User addContact(ContactDTO contactDto, String email);
+
 }
