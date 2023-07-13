@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -23,7 +22,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    public void saveUserAccountTest() {
+    public void saveUserTest() {
         //GIVEN
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName("test");
