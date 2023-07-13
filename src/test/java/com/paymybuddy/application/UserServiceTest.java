@@ -1,5 +1,6 @@
 package com.paymybuddy.application;
 
+import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.models.User;
@@ -98,5 +99,21 @@ public class UserServiceTest {
 
         //THEN
         assertEquals(BigDecimal.ONE, actualBalance);
+    }
+
+    @Test
+    public void bankTransferTest(){
+        //GIVEN
+        User user = new User(1, "test", "test", "test", "test", "test", BigDecimal.ZERO, null);
+        User expectedUserAccount = new User(1, "test", "test", "test", "test", "test", BigDecimal.valueOf(100), null);
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
+        AccountDTO accountDTO = new AccountDTO("test","test",BigDecimal.valueOf(100));
+        when(userRepository.save(expectedUserAccount)).thenReturn(expectedUserAccount);
+
+        //WHEN
+        userService.bankTransfer(accountDTO, "test");
+
+        //THEN
+        verify(userRepository, times(1)).save(expectedUserAccount);
     }
 }
