@@ -86,4 +86,17 @@ public class UserServiceTest {
         //THEN
         verify(userRepository, times(1)).save(user);
     }
+
+    @Test
+    public void getBalanceTest(){
+        //GIVEN
+        User user = new User(1, "test", "test", "test", "test", "test", BigDecimal.ONE, null);
+        when(userRepository.findByEmail("test")).thenReturn(Optional.of(user));
+
+        //WHEN
+        BigDecimal actualBalance = userService.getBalance("test");
+
+        //THEN
+        assertEquals(BigDecimal.ONE, actualBalance);
+    }
 }
