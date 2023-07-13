@@ -36,4 +36,17 @@ public class UserServiceTest {
         //THEN
         verify(userRepository, times(1)).save(any(User.class));
     }
+
+    @Test
+    public void findUserByEmailTest() {
+        //GIVEN
+
+        //WHEN
+        userService.findUserByEmail("test");
+
+        //THEN
+        verify(userRepository, times(1)).findByEmail(anyString());
+    }
+
+
 }
