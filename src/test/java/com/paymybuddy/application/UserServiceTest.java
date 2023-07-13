@@ -10,11 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -68,5 +69,21 @@ public class UserServiceTest {
 
         //THEN
         assertEquals(expectedContactList,contactList);
+    }
+
+    @Test
+    public void addContactTest() {
+        //GIVEN
+        User user = new User(1, "test", "test", "test", "test", "test", BigDecimal.ONE, new ArrayList<>());
+        User contact = new User(2, "contact", "contact", "contact", "contact", "contact", BigDecimal.ONE, null);
+        ContactDTO contactDto = new ContactDTO("contact","contact");
+        when(userRepository.findByEmail("test")).thenReturn(Optional.of(user));
+        when(userRepository.findByEmail("contact")).thenReturn(Optional.of(contact));
+
+        //WHEN
+        userService.addContact(contactDto,"test");
+
+        //THEN
+        verify(userRepository, times(1)).save(user);
     }
 }
