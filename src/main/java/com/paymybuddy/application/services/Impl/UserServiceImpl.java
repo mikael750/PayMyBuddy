@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
     /**
      *{@inheritDoc}
      */
+    @Override
     public Transaction transferMoney(MoneyTransferDTO moneyTransferDTO, String email) {
         // Trouver le compte du debiteur et debiter le montant de la transaction sans frais
         final User debtor = findUserByEmail(moneyTransferDTO.getContactEmail())
