@@ -2,7 +2,9 @@ package com.paymybuddy.application.services;
 
 import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
+import com.paymybuddy.application.DTO.MoneyTransferDTO;
 import com.paymybuddy.application.DTO.UserDTO;
+import com.paymybuddy.application.models.Transaction;
 import com.paymybuddy.application.models.User;
 
 import java.math.BigDecimal;
@@ -55,5 +57,13 @@ public interface UserService {
      * @return la transaction
      */
     User bankTransfer(AccountDTO accountDto, String email);
+
+    /**
+     * credite la solde du debiteur, debite la solde du creancier et cree une nouvelle transaction dans la DataBase
+     * @param moneyTransferDTO l'info de la transaction
+     * @param email l'email du crediteur
+     * @return retourne la transaction
+     */
+    Transaction transferMoney(MoneyTransferDTO moneyTransferDTO, String email);
 
 }

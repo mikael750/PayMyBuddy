@@ -1,9 +1,12 @@
 package com.paymybuddy.application.services.Impl;
 
 import com.paymybuddy.application.DTO.AccountDTO;
+import com.paymybuddy.application.DTO.MoneyTransferDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
+import com.paymybuddy.application.models.Transaction;
 import com.paymybuddy.application.models.User;
+import com.paymybuddy.application.repository.TransactionRepository;
 import com.paymybuddy.application.repository.UserRepository;
 import com.paymybuddy.application.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     /**
      *{@inheritDoc}
@@ -92,5 +98,25 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email))
                 .creditBalance(accountDto.getAmount());
         return userRepository.save(userAccount);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    public Transaction transferMoney(MoneyTransferDTO moneyTransferDTO, String email) {
+        // Trouver le compte du debiteur et debiter le montant de la transaction sans frais
+        final User debtor = findUserByEmail(moneyTransferDTO.getContactEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("Contact introuvable avec l'email : "+ moneyTransferDTO.getContactEmail()))
+                .creditBalance(moneyTransferDTO.getAmount());
+        userRepository.save(debtor);
+
+        // Trouver le compte du crediteur et le montant debiter de la transaction avec les frais
+        final User creditor = findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Compte introuvable avec l'email : " + email))
+                .debitBalance(moneyTransferDTO.getAmountWithFee());
+        userRepository.save(creditor);
+
+        Transaction transaction = new Transaction(moneyTransferDTO, creditor, debtor);
+        return transactionRepository.save(transaction);
     }
 }
