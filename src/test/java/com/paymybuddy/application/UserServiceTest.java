@@ -1,5 +1,6 @@
 package com.paymybuddy.application;
 
+import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.DTO.UserDTO;
 import com.paymybuddy.application.models.User;
 import com.paymybuddy.application.repository.UserRepository;
@@ -9,6 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -48,5 +54,19 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findByEmail(anyString());
     }
 
+    @Test
+    public void findContactListTest() {
+        //GIVEN
+        User user = new User();
+        User contact = new User();
+        user.getContactList().add(contact);
+        List<ContactDTO> expectedContactList = List.of(new ContactDTO(contact));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
+        //WHEN
+        List<ContactDTO> contactList = userService.findContactList("test");
+
+        //THEN
+        assertEquals(expectedContactList,contactList);
+    }
 }
