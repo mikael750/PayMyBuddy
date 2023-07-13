@@ -21,6 +21,11 @@ public class MoneyTransferDTO {
     @DecimalMin(value = "0.01", message = "Le montant ne peut pas etre inferieure a 0")
     BigDecimal amount = BigDecimal.ZERO;
 
+    public MoneyTransferDTO(String contact, BigDecimal valueOf) {
+        this.contactEmail = contact;
+        this.amount = valueOf;
+    }
+
     enum transactionType{
         BUSINESS,
         PERSONAL

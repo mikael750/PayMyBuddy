@@ -2,8 +2,11 @@ package com.paymybuddy.application;
 
 import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
+import com.paymybuddy.application.DTO.MoneyTransferDTO;
 import com.paymybuddy.application.DTO.UserDTO;
+import com.paymybuddy.application.models.Transaction;
 import com.paymybuddy.application.models.User;
+import com.paymybuddy.application.repository.TransactionRepository;
 import com.paymybuddy.application.repository.UserRepository;
 import com.paymybuddy.application.services.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,6 +32,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private TransactionRepository transactionRepository;
 
     @Test
     public void saveUserTest() {
@@ -115,5 +122,35 @@ public class UserServiceTest {
 
         //THEN
         verify(userRepository, times(1)).save(expectedUserAccount);
+    }
+
+    @Test
+    public void transferMoneyTest(){
+        //GIVEN
+        MoneyTransferDTO moneyTransferDTO = new MoneyTransferDTO("contact", BigDecimal.valueOf(75));
+        User debtor = new User(1, "contact", "contact", "contact", "contact", "contact", BigDecimal.ZERO, null);
+        User creditor = new User(2, "test", "test", "test", "test", "test", BigDecimal.valueOf(100), null);
+        Transaction expectedTransaction = new Transaction(moneyTransferDTO, creditor, debtor);
+
+        when(userRepository.findByEmail("test")).thenReturn(Optional.of(creditor));
+        when(userRepository.findByEmail("contact")).thenReturn(Optional.of(debtor));
+        when(userRepository.save(any(User.class))).thenAnswer(a -> a.getArguments()[0]);
+        when(transactionRepository.save(any(Transaction.class))).thenAnswer(a -> a.getArguments()[0]);
+
+
+        //WHEN
+        Transaction response = userService.transferMoney(moneyTransferDTO, "test");
+
+        //THEN
+        assertThat(response)
+                .satisfies(responses -> {
+                    assertThat(response.getSender().getId()).isEqualTo(creditor.getId());
+                    assertThat(response.getSender().getSolde()).isEqualTo(BigDecimal.valueOf(100).subtract(moneyTransferDTO.getAmountWithFee()));
+
+                    assertThat(response.getReceiver().getId()).isEqualTo(debtor.getId());
+                    assertThat(response.getReceiver().getSolde()).isEqualTo(moneyTransferDTO.getAmount());
+                });
+        verify(userRepository, times(2)).save(any(User.class));
+        verify(transactionRepository, times(1)).save(expectedTransaction);
     }
 }
