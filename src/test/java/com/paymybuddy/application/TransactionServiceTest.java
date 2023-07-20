@@ -11,9 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,4 +57,48 @@ public class TransactionServiceTest {
         //THEN
         assertEquals(expectedTransactionDTOList, actualTransactionDTOList);
     }
+
+    @Test
+    public void getPageWhenOnlyOnePageTest(){
+        //GIVEN
+        int currentPage = 1;
+        int pageSize = 5;
+        User userAccount = new User(1, "test", "test", "test", "test", "test", BigDecimal.ONE, null);
+        Transaction transaction = new Transaction(1, BigDecimal.ONE, amountWithFee(BigDecimal.ONE), "test", new User(), new User(), LocalDate.now());
+        when(userRepository.findByEmail("test")).thenReturn(Optional.of(userAccount));
+        when(transactionRepository.findAllBySenderOrReceiverOrderByDateDesc(userAccount, userAccount)).thenReturn(List.of(transaction));
+        TransactionDTO transactionDto = new TransactionDTO(transaction);
+        Page<TransactionDTO> expectedTransactionDtoPage = new PageImpl<>(Collections.emptyList(), PageRequest.of(currentPage, pageSize), List.of(transactionDto).size());
+
+        //WHEN
+        Page<TransactionDTO> actualTransactionDtoPage = transactionService.getPage(PageRequest.of(currentPage, pageSize), "test");
+
+        //THEN
+        assertEquals(expectedTransactionDtoPage, actualTransactionDtoPage);
+    }
+
+    @Test
+    public void getPageWhenMoreThanOnePageTest(){
+        //GIVEN
+        int currentPage = 2;
+        int pageSize = 5;
+        User userAccount = new User(1, "test", "test", "test", "test", "test", BigDecimal.ONE, null);
+        List<Transaction> transactionList = new ArrayList<>();
+        List<TransactionDTO> transactionDtoList = new ArrayList<>();
+        for(int i=0; i<7; i++ ){
+            Transaction transaction = new Transaction(i, BigDecimal.ONE, amountWithFee(BigDecimal.ONE), "test", new User(), new User(), LocalDate.now());
+            transactionList.add(transaction);
+            transactionDtoList.add(new TransactionDTO(transaction));
+        }
+        when(userRepository.findByEmail("test")).thenReturn(Optional.of(userAccount));
+        when(transactionRepository.findAllBySenderOrReceiverOrderByDateDesc(userAccount, userAccount)).thenReturn(transactionList);
+        Page<TransactionDTO> expectedTransactionDtoPage = new PageImpl<>(transactionDtoList.subList(7, 7), PageRequest.of(currentPage, pageSize), transactionDtoList.size());
+
+        //WHEN
+        Page<TransactionDTO> actualTransactionDtoPage = transactionService.getPage(PageRequest.of(currentPage, pageSize), "test");
+
+        //THEN
+        assertEquals(expectedTransactionDtoPage, actualTransactionDtoPage);
+    }
+
 }
