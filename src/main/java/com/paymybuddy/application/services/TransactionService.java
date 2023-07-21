@@ -22,4 +22,11 @@ public interface TransactionService {
      * @return la pagination de la liste de transaction
      */
     Page<TransactionDTO> getPage(Pageable pageable, String email);
+
+    /**
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    List<TransactionDTO> findTransactionByUser(String firstName,String lastName);
 }

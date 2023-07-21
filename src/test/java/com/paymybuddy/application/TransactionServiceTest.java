@@ -42,7 +42,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void findTransactionByUserTest(){
+    public void findTransactionByEmailTest(){
         //GIVEN
         User existingUser = new User(1, "test", "test", null, null, null, null, null);
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(existingUser));
@@ -52,6 +52,22 @@ public class TransactionServiceTest {
 
         //WHEN
         List<TransactionDTO> actualTransactionDTOList = transactionService.findTransactionByEmail("test");
+
+        //THEN
+        assertEquals(expectedTransactionDTOList, actualTransactionDTOList);
+    }
+
+    @Test
+    public void findTransactionByUserTest(){
+        //GIVEN
+        User existingUser = new User(1, "test", "test", null, null, null, null, null);
+        when(userRepository.findByFirstNameAndLastName(anyString(),anyString())).thenReturn(Optional.of(existingUser));
+        Transaction transaction = new Transaction(1, BigDecimal.ONE, amountWithFee(BigDecimal.ONE), null, existingUser, new User(), LocalDate.now());
+        when(transactionRepository.findAllBySender(existingUser)).thenReturn(List.of(transaction));
+        List<TransactionDTO> expectedTransactionDTOList = List.of(new TransactionDTO(transaction));
+
+        //WHEN
+        List<TransactionDTO> actualTransactionDTOList = transactionService.findTransactionByUser("test" , "test");
 
         //THEN
         assertEquals(expectedTransactionDTOList, actualTransactionDTOList);

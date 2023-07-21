@@ -42,6 +42,19 @@ public class TransactionServiceImpl implements TransactionService {
      *{@inheritDoc}
      */
     @Override
+    public List<TransactionDTO> findTransactionByUser(String firstName,String lastName) {
+        User connectedUser = userRepository.findByFirstNameAndLastName(firstName,lastName)
+                .orElseThrow(()->  new UsernameNotFoundException("Utilisateur introuvable avec le nom de l'utilisateur : " + firstName + " " + lastName));
+
+        return transactionRepository.findAllBySender(connectedUser)
+                .stream().map(TransactionDTO::new)
+                .toList();
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
     public Page<TransactionDTO> getPage(Pageable pageable, String email) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
