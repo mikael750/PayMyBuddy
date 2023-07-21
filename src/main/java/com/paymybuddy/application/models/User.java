@@ -26,7 +26,7 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -46,10 +46,9 @@ public class User {
     }
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST
     )
-    private List<User> contactList = new ArrayList<>();
+    private List<User> contacts = new ArrayList<>();
 
 
     /**
@@ -97,10 +96,10 @@ public class User {
      * @return
      */
     public User addContact(User user){
-        if (contactList.contains(user)) {
+        if (contacts.contains(user)) {
             throw new RuntimeException(user.getEmail() + " est deja dans vos contactes");
         }
-        contactList.add(user);
+        contacts.add(user);
         return this;
     }
 
