@@ -3,7 +3,6 @@ package com.paymybuddy.application;
 import com.paymybuddy.application.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
@@ -67,7 +66,7 @@ public class UserTest {
         existingUser1.addContact(existingUser2);
 
         //THEN
-        assertEquals(existingUser2, existingUser1.getContactList().get(0));
+        assertEquals(existingUser2, existingUser1.getContacts().get(0));
 
     }
 }

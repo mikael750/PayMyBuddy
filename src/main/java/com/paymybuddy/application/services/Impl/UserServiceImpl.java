@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         if (userGetContact.isEmpty()){
             throw new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email);
         }
-        return userGetContact.get().getContactList()
+        return userGetContact.get().getContacts()
                 .stream().map(ContactDTO::new)
                 .toList();
     }

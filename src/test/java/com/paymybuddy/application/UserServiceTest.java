@@ -68,7 +68,7 @@ public class UserServiceTest {
         //GIVEN
         User user = new User();
         User contact = new User();
-        user.getContactList().add(contact);
+        user.getContacts().add(contact);
         List<ContactDTO> expectedContactList = List.of(new ContactDTO(contact));
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
