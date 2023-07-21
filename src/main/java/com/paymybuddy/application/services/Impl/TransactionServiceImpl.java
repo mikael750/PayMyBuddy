@@ -29,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
      *{@inheritDoc}
      */
     @Override
-    public List<TransactionDTO> findTransactionByUser(String email) {
+    public List<TransactionDTO> findTransactionByEmail(String email) {
         User connectedUser = userRepository.findByEmail(email)
                 .orElseThrow(()->  new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email));
 
@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
         int startItem = currentPage * pageSize;
         List<TransactionDTO> list;
 
-        List<TransactionDTO> transactionDTOList = findTransactionByUser(email);
+        List<TransactionDTO> transactionDTOList = findTransactionByEmail(email);
         if (transactionDTOList.size() < startItem) {
             list = Collections.emptyList();
         } else {

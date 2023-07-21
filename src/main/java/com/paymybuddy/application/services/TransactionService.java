@@ -13,7 +13,7 @@ public interface TransactionService {
      * @param email l'email de l'utilisateur
      * @return une liste de transaction
      */
-    List<TransactionDTO> findTransactionByUser(String email);
+    List<TransactionDTO> findTransactionByEmail(String email);
 
     /**
      * obtient la pagination de la liste de transaction d'un utilisateur

@@ -1,6 +1,5 @@
 package com.paymybuddy.application;
 
-import com.paymybuddy.application.DTO.MoneyTransferDTO;
 import com.paymybuddy.application.DTO.TransactionDTO;
 import com.paymybuddy.application.models.Transaction;
 import com.paymybuddy.application.models.User;
@@ -52,7 +51,7 @@ public class TransactionServiceTest {
         List<TransactionDTO> expectedTransactionDTOList = List.of(new TransactionDTO(transaction));
 
         //WHEN
-        List<TransactionDTO> actualTransactionDTOList = transactionService.findTransactionByUser("test");
+        List<TransactionDTO> actualTransactionDTOList = transactionService.findTransactionByEmail("test");
 
         //THEN
         assertEquals(expectedTransactionDTOList, actualTransactionDTOList);
