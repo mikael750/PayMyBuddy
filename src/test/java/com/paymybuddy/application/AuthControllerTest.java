@@ -4,8 +4,8 @@ import com.paymybuddy.application.controllers.AuthController;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,10 +21,10 @@ public class AuthControllerTest {
     @Test
     public void loginPageTest(){
         //GIVEN
-        String expectedString = "login";
+        String expectedString = "<200 OK OK,login,[]>";
 
         //WHEN
-        String actualString = authController.loginPage();
+        String actualString = authController.loginPage().toString();
 
         //THEN
         assertEquals(expectedString, actualString);
@@ -33,10 +33,10 @@ public class AuthControllerTest {
     @Test
     public void registrationPageTest(){
         //GIVEN
-        String expectedString = "registration";
+        String expectedString = "<200 OK OK,registration,[]>";
 
         //WHEN
-        String actualString = authController.registrationPage(model);
+        String actualString = authController.registrationPage(model).toString();
 
         //THEN
         assertEquals(expectedString, actualString);
