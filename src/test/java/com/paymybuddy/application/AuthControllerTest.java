@@ -72,4 +72,26 @@ public class AuthControllerTest {
         verify(userService, times(1)).saveUser(userDTO);
         assertEquals(expectedString, actualString);
     }
+
+    @Test
+    public void registrationWhenErrorTest(){
+        //GIVEN
+        when(result.hasErrors()).thenReturn(true);
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLastName("test");
+        userDTO.setFirstName("test");
+        userDTO.setEmail("test@test.test");
+        userDTO.setBirthdate("01/01/2000");
+        userDTO.setPassword("test");
+
+        String expectedString = "<200 OK OK,registration,[]>";
+
+        //WHEN
+        String actualString = authController.registration(userDTO, result, model).toString();
+
+        //THEN
+        verify(model, times(1)).addAttribute("user", userDTO);
+        assertEquals(expectedString, actualString);
+    }
 }
