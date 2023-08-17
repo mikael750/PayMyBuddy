@@ -50,7 +50,7 @@ public class HomeControllerTest {
         when(userService.transferMoney(new MoneyTransferDTO(), "test")).thenReturn(new Transaction());
         String expectedString = "<200 OK OK,redirect:/home?success,[]>";
 
-        //WHEn
+        //WHEN
         String actualString = homeController.moneyTransfer(new MoneyTransferDTO(), result, model, principal).toString();
 
         //THEN
