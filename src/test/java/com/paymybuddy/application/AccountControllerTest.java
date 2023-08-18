@@ -34,7 +34,7 @@ public class AccountControllerTest {
     @Test
     public void accountPageTest(){
         //GIVEN
-        String expectedString = "<200 OK OK,account,[]>";
+        String expectedString = "account";
 
         //WHEN
         String actualString = accountController.accountPage(model, principal, new AccountDTO()).toString();
@@ -48,7 +48,7 @@ public class AccountControllerTest {
         //GIVEN
         when(result.hasErrors()).thenReturn(false);
         when(userService.bankTransfer(any(AccountDTO.class), anyString())).thenReturn(new User());
-        String expectedString = "<200 OK OK,redirect:/account?success,[]>";
+        String expectedString = "redirect:/account?success";
 
         //WHEN
         String actualString = accountController.account(new AccountDTO(), result, model, principal).toString();

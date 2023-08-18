@@ -32,10 +32,10 @@ public class ContactControllerTest {
     @Test
     public void contactPageTest(){
         //GIVEN
-        String expectedString= "<200 OK OK,contact,[]>";
+        String expectedString= "contact";
 
         //WHEN
-        String actualString = contactController.contactPage(model, principal).toString();
+        String actualString = contactController.contactPage(model, principal);
 
         //THEN
         assertEquals(expectedString, actualString);
@@ -46,11 +46,11 @@ public class ContactControllerTest {
         //GIVEN
         ContactDTO contactDTO = new ContactDTO("test", "test");
         when(userService.addContact(contactDTO, "test")).thenReturn(new User());
-        String expectedString = "<200 OK OK,redirect:/contact?success,[]>";
+        String expectedString = "redirect:/contact?success";
         when(principal.getName()).thenReturn("test");
 
         //WHEN
-        String actualString = contactController.addContact(contactDTO, result, model, principal).toString();
+        String actualString = contactController.addContact(contactDTO, result, model, principal);
 
         //THEN
         assertEquals(expectedString, actualString);

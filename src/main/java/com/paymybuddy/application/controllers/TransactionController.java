@@ -5,13 +5,11 @@ import com.paymybuddy.application.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -22,7 +20,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping(value = "/transaction")
-    public ResponseEntity<String> transactionPage(Model transactionFormDTO, Authentication principal, @RequestParam(name = "page", required = false, defaultValue = "1") Integer currentPage, @RequestParam(name = "size", required = false, defaultValue = "5") Integer pageSize) {
+    public String transactionPage(Model transactionFormDTO, Authentication principal, @RequestParam(name = "page", required = false, defaultValue = "1") Integer currentPage, @RequestParam(name = "size", required = false, defaultValue = "5") Integer pageSize) {
         Page<TransactionDTO> transactionDTOPage = transactionService.getPage(PageRequest.of(currentPage - 1, pageSize), principal.getName());
         transactionFormDTO.addAttribute("transactionDTOPage", transactionDTOPage);
 
@@ -33,6 +31,6 @@ public class TransactionController {
                     .collect(Collectors.toList());
             transactionFormDTO.addAttribute("pageNumbers", pageNumbers);
         }
-        return ResponseEntity.ok("transaction");
+        return "transaction";
     }
 }

@@ -34,10 +34,10 @@ public class HomeControllerTest {
     @Test
     public void showHomePageTest(){
         //GIVEN
-        String expectedString= "<200 OK OK,home,[]>";
+        String expectedString= "home";
 
         //WHEN
-        String actualString = homeController.homePage(model, principal, new MoneyTransferDTO()).toString();
+        String actualString = homeController.homePage(model, principal, new MoneyTransferDTO());
 
         //THEN
         assertEquals(expectedString, actualString);
@@ -48,10 +48,10 @@ public class HomeControllerTest {
         //GIVEN
         when(principal.getName()).thenReturn("test");
         when(userService.transferMoney(new MoneyTransferDTO(), "test")).thenReturn(new Transaction());
-        String expectedString = "<200 OK OK,redirect:/home?success,[]>";
+        String expectedString = "redirect:/home?success";
 
         //WHEN
-        String actualString = homeController.moneyTransfer(new MoneyTransferDTO(), result, model, principal).toString();
+        String actualString = homeController.moneyTransfer(new MoneyTransferDTO(), result, model, principal);
 
         //THEN
         assertEquals(expectedString, actualString);

@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class TransactionControllerTest {
         Page<TransactionDTO> transactionDtoPage = new PageImpl(List.of(transactionDto), PageRequest.of(1,5), 1);
         when(principal.getName()).thenReturn("test");
         when(transactionService.getPage(PageRequest.of(0,5), "test")).thenReturn(transactionDtoPage);
-        String expectedString = "<200 OK OK,transaction,[]>";
+        String expectedString = "transaction";
 
         //WHEN
         String actualString = transactionController.transactionPage(model, principal, 1, 5).toString();

@@ -30,10 +30,10 @@ public class AuthControllerTest {
     @Test
     public void loginPageTest(){
         //GIVEN
-        String expectedString = "<200 OK OK,login,[]>";
+        String expectedString = "login";
 
         //WHEN
-        String actualString = authController.loginPage().toString();
+        String actualString = authController.loginPage();
 
         //THEN
         assertEquals(expectedString, actualString);
@@ -42,10 +42,10 @@ public class AuthControllerTest {
     @Test
     public void registrationPageTest(){
         //GIVEN
-        String expectedString = "<200 OK OK,registration,[]>";
+        String expectedString = "registration";
 
         //WHEN
-        String actualString = authController.registrationPage(model).toString();
+        String actualString = authController.registrationPage(model);
 
         //THEN
         assertEquals(expectedString, actualString);
@@ -61,12 +61,12 @@ public class AuthControllerTest {
         userDTO.setBirthdate("01/01/2000");
         userDTO.setPassword("test");
 
-        String expectedString = "<200 OK OK,redirect:/registration?success,[]>";
+        String expectedString = "redirect:/registration?success";
 
         when(userService.saveUser(userDTO)).thenReturn(new User());
 
         //WHEN
-        String actualString = authController.registration(userDTO, result, model).toString();
+        String actualString = authController.registration(userDTO, result, model);
 
         //THEN
         verify(userService, times(1)).saveUser(userDTO);
@@ -85,10 +85,10 @@ public class AuthControllerTest {
         userDTO.setBirthdate("01/01/2000");
         userDTO.setPassword("test");
 
-        String expectedString = "<200 OK OK,registration,[]>";
+        String expectedString = "registration";
 
         //WHEN
-        String actualString = authController.registration(userDTO, result, model).toString();
+        String actualString = authController.registration(userDTO, result, model);
 
         //THEN
         verify(model, times(1)).addAttribute("user", userDTO);
