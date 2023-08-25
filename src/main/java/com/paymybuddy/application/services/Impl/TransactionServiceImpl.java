@@ -31,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionDTO> findTransactionByEmail(String email) {
         User connectedUser = userRepository.findByEmail(email)
-                .orElseThrow(()->  new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email));
+                .orElseThrow(()->  new UsernameNotFoundException("User not found with email : " + email));
 
         return transactionRepository.findAllBySenderOrReceiverOrderByDateDesc(connectedUser, connectedUser)
                 .stream().map(TransactionDTO::new)
@@ -44,7 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionDTO> findTransactionByUser(String firstName,String lastName) {
         User connectedUser = userRepository.findByFirstNameAndLastName(firstName,lastName)
-                .orElseThrow(()->  new UsernameNotFoundException("Utilisateur introuvable avec le nom de l'utilisateur : " + firstName + " " + lastName));
+                .orElseThrow(()->  new UsernameNotFoundException("User not found with username : " + firstName + " " + lastName));
 
         return transactionRepository.findAllBySender(connectedUser)
                 .stream().map(TransactionDTO::new)
