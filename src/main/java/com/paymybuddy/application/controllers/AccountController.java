@@ -30,7 +30,7 @@ public class AccountController {
         accountFormDto.addAttribute("transfer_amount", accountDTO);
         accountFormDto.addAttribute("balance", balance);
         accountFormDto.addAttribute("add_account", new AccountDTO());
-        accountFormDto.addAttribute("account_list", accountService.findAccountList(principal.getName()));
+       // accountFormDto.addAttribute("account_list", accountService.findAccountList(principal.getName()));
         return "account";
     }
 
@@ -63,8 +63,6 @@ public class AccountController {
         } catch (Exception e) {
             accountFormDto.addAttribute("account_error", e.getMessage());
             return accountPage(accountFormDto, principal, accountDTO);
-        }
+     }*/
 
-        return "redirect:/account?success";
-    }*/
 }

@@ -16,10 +16,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
-
-    /**
-     *{@inheritDoc}
-     */
+    /*
+        /**
+         *{@inheritDoc}
+         *
     @Override
     public List<AccountDTO> findAccountList(String iban) {
         Optional<Account> userGetAccount = accountRepository.findAllByIban(iban);
@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     /**
      *{@inheritDoc}
      * @return
-     */
+     *
     @Override
     public Account addAccount(AccountDTO accountDto, String iban) {
         Account accountToAdd = accountRepository.findAllByIban(accountDto.getIban())
@@ -45,5 +45,5 @@ public class AccountServiceImpl implements AccountService {
                 .addAccount(accountToAdd);
 
         return accountRepository.save(accountToAddAccount);
-    }
+    }*/
 }

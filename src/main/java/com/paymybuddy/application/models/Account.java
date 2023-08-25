@@ -31,7 +31,7 @@ public class Account {
         this.bic = accountDTO.getBic();
         this.amount = accountDTO.getAmount();
     }
-
+/*
     @ManyToMany(
             cascade = CascadeType.PERSIST
     )
@@ -41,12 +41,12 @@ public class Account {
      * Ajout un contact a l'utilisateur
      * @param account
      * @return
-     */
+     *
     public Account addAccount(Account account){
         if (accounts.contains(account)) {
             throw new RuntimeException(account.getIban() + " est deja dans vos contactes");
         }
         accounts.add(account);
         return this;
-    }
+    }*/
 }

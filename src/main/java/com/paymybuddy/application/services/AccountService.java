@@ -6,17 +6,17 @@ import com.paymybuddy.application.models.Account;
 import java.util.List;
 
 public interface AccountService {
-
+/*
     /**
      * @param iban
      * @return
-     */
+     *
     List<AccountDTO> findAccountList(String iban);
 
     /**
      * @param accountDto
      * @param iban
      * @return
-     */
-    Account addAccount(AccountDTO accountDto, String iban);
+     *
+    Account addAccount(AccountDTO accountDto, String iban);*/
 }

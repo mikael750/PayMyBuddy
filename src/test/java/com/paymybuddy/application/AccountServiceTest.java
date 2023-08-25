@@ -25,7 +25,7 @@ public class AccountServiceTest {
 
     @Mock
     private AccountRepository accountRepository;
-
+/*
     @Test
     public void addContactTest() {
         //GIVEN
@@ -56,5 +56,5 @@ public class AccountServiceTest {
 
         //THEN
         assertEquals(expectedAccountList,accountList);
-    }
+    }*/
 }
