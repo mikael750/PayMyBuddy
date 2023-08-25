@@ -1,15 +1,14 @@
 package com.paymybuddy.application.models;
 
 import com.paymybuddy.application.DTO.AccountDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,5 +30,23 @@ public class Account {
         this.iban = accountDTO.getIban();
         this.bic = accountDTO.getBic();
         this.amount = accountDTO.getAmount();
+    }
+
+    @ManyToMany(
+            cascade = CascadeType.PERSIST
+    )
+    private List<Account> accounts = new ArrayList<>();
+
+    /**
+     * Ajout un contact a l'utilisateur
+     * @param account
+     * @return
+     */
+    public Account addAccount(Account account){
+        if (accounts.contains(account)) {
+            throw new RuntimeException(account.getIban() + " est deja dans vos contactes");
+        }
+        accounts.add(account);
+        return this;
     }
 }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay My Buddy - Account</title>
+  <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}">Pay My Buddy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/account}">Accounts</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/transaction}">Transaction</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/contact}">Contact</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br/><br/><br/>
+
+<div class="container">
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-headers">
+        <h2 class="text-center">Transfer to or from your bank account</h2>
+      </div>
+      </br>
+      <h3 class="text-center">balance : <span th:text="${balance}"></span></h3>
+      <div th:if="${param.success}">
+        <div class="alert alert-info">
+          You have successfully transferred the amount!
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Specify "-XX" if you would credit your bank account</p>
+        <form
+                method="post"
+                role="form"
+                th:action="@{/account}"
+                th:object="${transfer_amount}"
+        >
+          <div class="form-group mb-3">
+            <label class="form-label">Amount</label>
+            <input
+                    class="form-control"
+                    id="transfer_amount"
+                    name="transfer_amount"
+                    placeholder="Enter the amount you would transfer"
+                    th:field="*{amount}"
+                    type="text"
+            />
+            <p th:errors="*{amount}" class="text-danger"
+               th:if="${#fields.hasErrors('amount')}"></p>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Transfer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-headers">
+        <h2 class="text-center">Accounts</h2>
+      </div>
+      <div th:if="${param.success}">
+        <div class="alert alert-info">
+          Account was added successfully!
+        </div>
+      </div>
+      <div class="error" th:if="${#fields.allErrors()}">
+        <div  th:text="${account_error}"> </div>
+      </div>
+      <div class="card-body">
+        <form
+                method="post"
+                role="form"
+                th:action="@{/account/save}"
+                th:object="${add_account}"
+        >
+          <div class="form-group mb-3">
+            <label class="form-label">Iban</label>
+            <input
+                    class="form-control"
+                    id="iban"
+                    name="iban"
+                    placeholder="Enter Bank Account iban"
+                    th:field="*{iban}"
+                    type="text"
+            />
+            <p th:errors="*{iban}" class="text-danger"
+               th:if="${#fields.hasErrors('iban')}"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label">BIC</label>
+            <input
+                    class="form-control"
+                    id="bic"
+                    name="bic"
+                    placeholder="Enter Bank Account BIC"
+                    th:field="*{bic}"
+                    type="text"
+            />
+            <p th:errors="*{bic}" class="text-danger"
+               th:if="${#fields.hasErrors('bic')}"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label">Amount</label>
+            <input
+                    class="form-control"
+                    id="amount"
+                    name="amount"
+                    placeholder="Enter Bank Account Amount"
+                    th:field="*{amount}"
+                    type="number"
+            />
+            <p th:errors="*{amount}" class="text-danger"
+               th:if="${#fields.hasErrors('amount')}"></p>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br/><br/><br/>
+  <div class="row col-md-10">
+    <h2>List of Accounts</h2>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>Bank Account Name</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "account_list : ${account_list}">
+      <td th:text = "${account_list.bic}"></td>
+      <td th:text = "${account_list.amount}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

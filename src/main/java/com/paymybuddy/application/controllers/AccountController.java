@@ -1,10 +1,10 @@
 package com.paymybuddy.application.controllers;
 
 import com.paymybuddy.application.DTO.AccountDTO;
+import com.paymybuddy.application.services.AccountService;
 import com.paymybuddy.application.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +21,16 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping(value =  {"/account"})
     public String accountPage(Model accountFormDto, Authentication principal, AccountDTO accountDTO){
         BigDecimal balance = userService.getBalance(principal.getName());
         accountFormDto.addAttribute("transfer_amount", accountDTO);
         accountFormDto.addAttribute("balance", balance);
+        accountFormDto.addAttribute("add_account", new AccountDTO());
+        accountFormDto.addAttribute("account_list", accountService.findAccountList(principal.getName()));
         return "account";
     }
 
@@ -47,4 +52,19 @@ public class AccountController {
             return "account";
         }
     }
+/*
+    @PostMapping("/account/save")
+    public String addAccount(@Valid @ModelAttribute("add_account") AccountDTO accountDTO, BindingResult result, Model accountFormDto, Authentication principal){
+        if (result.hasErrors()) {
+            return accountPage(accountFormDto, principal, accountDTO);
+        }
+        try {
+            accountService.addAccount(accountDTO, principal.getName());
+        } catch (Exception e) {
+            accountFormDto.addAttribute("account_error", e.getMessage());
+            return accountPage(accountFormDto, principal, accountDTO);
+        }
+
+        return "redirect:/account?success";
+    }*/
 }
