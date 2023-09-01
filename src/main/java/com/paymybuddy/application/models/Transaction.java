@@ -38,7 +38,7 @@ public class Transaction {
     public Transaction(MoneyTransferDTO moneyTransferDTO, User sender, User receiver){
         this.originalAmount = moneyTransferDTO.getAmount();
         this.amount = moneyTransferDTO.getAmountWithFee();
-        this.transactionType = Arrays.toString(moneyTransferDTO.getTransactionType());
+        this.transactionType = moneyTransferDTO.getTransactionType();
         this.sender = sender;
         this.receiver= receiver;
         this.date = LocalDate.now();

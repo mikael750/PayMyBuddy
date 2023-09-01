@@ -40,14 +40,14 @@
                 <h2 class="text-center">Transfer money</h2>
             </div>
             </br>
-            <h3 class="text-center">balance : <span th:text="${solde}"></span></h3>
+            <h3 class="text-center">Balance : <span th:text="${solde}"></span></h3>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
                     You have successfully sent money!
                 </div>
             </div>
-            <p>0.5% fee will be added on the amount</p>
-            <p>Please verify that you have enough money on your balance</p>
+            <p>0.5% fee will be added on the amount given</p>
+            <p>Please verify that you have enough money on your balance before sending</p>
             <div class="error" th:if="${#fields.allErrors()}">
                 <div  th:text="${message_error}">
                 </div>
@@ -73,18 +73,19 @@
                            th:if="${#fields.hasErrors('amount')}"></p>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="form-label">Transaction Type</label>
+                        <label class="form-label">Reference of transaction</label>
                         <input
                                 class="form-control"
-                                id="transactionType"
-                                name="transactionType"
-                                placeholder="Enter what type is the transfer"
+                                id="reference"
+                                name="reference"
+                                placeholder="Enter what kind of transfer it is"
                                 th:field="*{transactionType}"
                                 type="text"
                         />
                         <p th:errors="*{transactionType}" class="text-danger"
                            th:if="${#fields.hasErrors('transactionType')}"></p>
                     </div>
+                    </br>
                     <div class="form-group mb-3">
                         <select th:field="*{contactEmail}">
                             <option value=""> -- select a contact -- </option>
@@ -93,6 +94,7 @@
                         <p th:errors="*{contactEmail}" class="text-danger"
                            th:if="${#fields.hasErrors('contactEmail')}"></p>
                     </div>
+                    </br>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Send</button>
                     </div>
