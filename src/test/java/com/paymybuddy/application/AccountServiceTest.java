@@ -41,7 +41,7 @@ public class AccountServiceTest {
         //THEN
         verify(accountRepository, times(1)).save(account);
     }
-
+*/
     @Test
     public void findContactListTest() {
         //GIVEN
@@ -49,12 +49,12 @@ public class AccountServiceTest {
         Account bank = new Account();
         account.getAccounts().add(bank);
         List<AccountDTO> expectedAccountList = List.of(new AccountDTO(bank));
-        when(accountRepository.findAllByIban(anyString())).thenReturn(Optional.of(account));
+        when(accountRepository.findByIban(anyString())).thenReturn(Optional.of(account));
 
         //WHEN
         List<AccountDTO> accountList = accountService.findAccountList("test");
 
         //THEN
         assertEquals(expectedAccountList,accountList);
-    }*/
+    }
 }

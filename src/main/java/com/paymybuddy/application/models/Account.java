@@ -31,22 +31,22 @@ public class Account {
         this.bic = accountDTO.getBic();
         this.amount = accountDTO.getAmount();
     }
-/*
+
     @ManyToMany(
             cascade = CascadeType.PERSIST
     )
     private List<Account> accounts = new ArrayList<>();
 
     /**
-     * Ajout un contact a l'utilisateur
+     * Ajout un compte a l'utilisateur
      * @param account
      * @return
-     *
+     */
     public Account addAccount(Account account){
         if (accounts.contains(account)) {
-            throw new RuntimeException(account.getIban() + " est deja dans vos contactes");
+            throw new RuntimeException(account.getIban() + " is already registered");
         }
         accounts.add(account);
         return this;
-    }*/
+    }
 }

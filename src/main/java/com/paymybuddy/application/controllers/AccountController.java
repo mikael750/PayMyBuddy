@@ -29,7 +29,7 @@ public class AccountController {
         BigDecimal balance = userService.getBalance(principal.getName());
         accountFormDto.addAttribute("transfer_amount", accountDTO);
         accountFormDto.addAttribute("balance", balance);
-        accountFormDto.addAttribute("add_account", new AccountDTO());
+       // accountFormDto.addAttribute("add_account", new AccountDTO());
        // accountFormDto.addAttribute("account_list", accountService.findAccountList(principal.getName()));
         return "account";
     }

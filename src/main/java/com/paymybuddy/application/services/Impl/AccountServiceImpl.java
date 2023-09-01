@@ -16,13 +16,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
-    /*
+
         /**
          *{@inheritDoc}
-         *
+         */
     @Override
     public List<AccountDTO> findAccountList(String iban) {
-        Optional<Account> userGetAccount = accountRepository.findAllByIban(iban);
+        Optional<Account> userGetAccount = accountRepository.findByIban(iban);
         if (userGetAccount.isEmpty()){
             throw new UsernameNotFoundException("Account not found with iban: " + iban);
         }
@@ -34,16 +34,16 @@ public class AccountServiceImpl implements AccountService {
     /**
      *{@inheritDoc}
      * @return
-     *
+     */
     @Override
     public Account addAccount(AccountDTO accountDto, String iban) {
-        Account accountToAdd = accountRepository.findAllByIban(accountDto.getIban())
+        Account accountToAdd = accountRepository.findByIban(accountDto.getIban())
                 .orElseThrow(() -> new UsernameNotFoundException("Account not found with iban : " + iban));
 
-        Account accountToAddAccount = accountRepository.findAllByIban(iban)
+        Account accountToAddAccount = accountRepository.findByIban(iban)
                 .orElseThrow(() -> new UsernameNotFoundException("Account not found with iban : " + iban))
                 .addAccount(accountToAdd);
 
         return accountRepository.save(accountToAddAccount);
-    }*/
+    }
 }

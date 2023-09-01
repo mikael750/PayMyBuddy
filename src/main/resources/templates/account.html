@@ -67,9 +67,10 @@
             <p th:errors="*{amount}" class="text-danger"
                th:if="${#fields.hasErrors('amount')}"></p>
           </div>
-
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Transfer</button>
+            <br/>
+            <span>Want to add a bank account? <a th:href="@{/addaccount}">Add here</a></span>
           </div>
         </form>
       </div>
@@ -77,92 +78,6 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row col-md-8 offset-md-2">
-    <div class="card">
-      <div class="card-headers">
-        <h2 class="text-center">Accounts</h2>
-      </div>
-      <div th:if="${param.success}">
-        <div class="alert alert-info">
-          Account was added successfully!
-        </div>
-      </div>
-      <div class="error" th:if="${#fields.allErrors()}">
-        <div  th:text="${account_error}"> </div>
-      </div>
-      <div class="card-body">
-        <form
-                method="post"
-                role="form"
-                th:action="@{/account/save}"
-                th:object="${add_account}"
-        >
-          <div class="form-group mb-3">
-            <label class="form-label">Iban</label>
-            <input
-                    class="form-control"
-                    id="iban"
-                    name="iban"
-                    placeholder="Enter Bank Account iban"
-                    th:field="*{iban}"
-                    type="text"
-            />
-            <p th:errors="*{iban}" class="text-danger"
-               th:if="${#fields.hasErrors('iban')}"></p>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">BIC</label>
-            <input
-                    class="form-control"
-                    id="bic"
-                    name="bic"
-                    placeholder="Enter Bank Account BIC"
-                    th:field="*{bic}"
-                    type="text"
-            />
-            <p th:errors="*{bic}" class="text-danger"
-               th:if="${#fields.hasErrors('bic')}"></p>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Amount</label>
-            <input
-                    class="form-control"
-                    id="amount"
-                    name="amount"
-                    placeholder="Enter Bank Account Amount"
-                    th:field="*{amount}"
-                    type="number"
-            />
-            <p th:errors="*{amount}" class="text-danger"
-               th:if="${#fields.hasErrors('amount')}"></p>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary" type="submit">Add</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <br/><br/><br/>
-  <div class="row col-md-10">
-    <h2>List of Accounts</h2>
-  </div>
-  <table class="table table-bordered table-hover">
-    <thead class="table-dark">
-    <tr>
-      <th>Bank Account Name</th>
-      <th>Amount</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each = "account_list : ${account_list}">
-      <td th:text = "${account_list.bic}"></td>
-      <td th:text = "${account_list.amount}"></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 
 </body>
 </html>

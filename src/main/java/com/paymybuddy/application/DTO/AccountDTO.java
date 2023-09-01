@@ -22,10 +22,10 @@ public class AccountDTO {
     @NotNull
     @Digits(integer = 4, fraction = 2)
     BigDecimal amount;
-/*
+
     public AccountDTO(Account account) {
         iban = account.getIban();
         bic = account.getBic();
         amount = account.getAmount();
-    }*/
+    }
 }
