@@ -22,6 +22,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/transfer}">Transfer</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/account}">Accounts</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/transaction}">Transaction</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/contact}">Contact</a>
@@ -36,66 +37,7 @@
     <div class="row col-md-8 offset-md-2">
         <div class="card">
             <div class="card-headers">
-                <h2 class="text-center">Transfer money</h2>
-            </div>
-            </br>
-            <h3 class="text-center">balance : <span th:text="${solde}"></span></h3>
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    You have successfully sent money!
-                </div>
-            </div>
-            <p>0.5% fee will be added on the amount</p>
-            <p>Please verify that you have enough money on your balance</p>
-            <div class="error" th:if="${#fields.allErrors()}">
-                <div  th:text="${message_error}">
-                </div>
-            </div>
-            <div class="card-body">
-                <form
-                        method="post"
-                        role="form"
-                        th:action="@{/home}"
-                        th:object="${money_transfer}"
-                >
-                    <div class="form-group mb-3">
-                        <label class="form-label">Amount</label>
-                        <input
-                                class="form-control"
-                                id="amount"
-                                name="amount"
-                                placeholder="Enter the amount you would transfer"
-                                th:field="*{amount}"
-                                type="text"
-                        />
-                        <p th:errors="*{amount}" class="text-danger"
-                           th:if="${#fields.hasErrors('amount')}"></p>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Transaction Type</label>
-                        <input
-                                class="form-control"
-                                id="transactionType"
-                                name="transactionType"
-                                placeholder="Enter what type is the transfer"
-                                th:field="*{transactionType}"
-                                type="text"
-                        />
-                        <p th:errors="*{transactionType}" class="text-danger"
-                           th:if="${#fields.hasErrors('transactionType')}"></p>
-                    </div>
-                    <div class="form-group mb-3">
-                        <select th:field="*{contactEmail}">
-                            <option value=""> -- select a contact -- </option>
-                            <option th:each="contact_list : ${contact_list}" th:value="${contact_list.getEmail()}" th:text="${contact_list.getEmail()}"></option>
-                        </select>
-                        <p th:errors="*{contactEmail}" class="text-danger"
-                           th:if="${#fields.hasErrors('contactEmail')}"></p>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Send</button>
-                    </div>
-                </form>
+                <h2 class="text-center">Welcome to Pay My Buddy</h2>
             </div>
         </div>
     </div>
