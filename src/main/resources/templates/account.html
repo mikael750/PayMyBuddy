@@ -62,7 +62,7 @@
                     id="transfer_amount"
                     name="transfer_amount"
                     placeholder="Enter the amount you would transfer"
-                    th:field="-*{amount}"
+                    th:field="*{amount}"
                     type="text"
             />
             <p th:errors="*{amount}" class="text-danger"

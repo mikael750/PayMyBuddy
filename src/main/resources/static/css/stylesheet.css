@@ -1,11 +1,26 @@
+li
+{
+    color: black;
+}
 .nav-item
 {
     display: flex;
     flex-direction: row;
+    position: fixed;
+    top: 15px;
+    right: 0;
 }
 .navbar
 {
-    background-color: green;
+    background-color: grey;
+    border-block: 1px solid grey;
+}
+.navbar-brand
+{
+    background : black;
+    border-block: 5px solid black;
+    border-radius: 30px;
+    padding: 10px;
 }
 .page
 {
@@ -27,9 +42,9 @@
 .card-headers
 {
     background-color: green;
-    padding: .5rem 1rem;
+    padding: 1rem 1rem;
     margin-bottom: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, .1)
+    border-bottom: 1px solid rgba(0, 0, 0, .2)
 }
 .card-headers h2
 {
