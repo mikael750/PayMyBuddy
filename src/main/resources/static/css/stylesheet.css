@@ -1,12 +1,8 @@
-li
-{
-    color: black;
-}
 .nav-item
 {
     display: flex;
     flex-direction: row;
-    position: fixed;
+    position: absolute;
     top: 15px;
     right: 0;
 }
