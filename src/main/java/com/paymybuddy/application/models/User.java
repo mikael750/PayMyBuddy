@@ -66,7 +66,7 @@ public class User {
      */
     public User creditBalance(BigDecimal amount){
         if (solde.add(amount).compareTo(BigDecimal.ZERO) < 0){
-            throw new RuntimeException("la solde n'est pas suffisante");
+            throw new RuntimeException("The Balance doesn't have enough !");
         }
         setSolde(solde.add(amount));
         return this;
@@ -79,11 +79,11 @@ public class User {
      */
     public User debitBalance(BigDecimal amount){
         if(amount.compareTo(BigDecimal.ZERO) <= 0 ){
-            throw new RuntimeException("la solde ne peut pas etre inferieure ou egal a zero");
+            throw new RuntimeException("The Balance cannot be less or equal than zero");
         }
 
         if(solde.compareTo(amount) < 0 ) {
-            throw new RuntimeException("la solde n'est pas suffisante");
+            throw new RuntimeException("The Balance of the sender doesn't have enough !");
         }
         solde = solde.subtract(amount);
 
@@ -97,7 +97,7 @@ public class User {
      */
     public User addContact(User user){
         if (contacts.contains(user)) {
-            throw new RuntimeException(user.getEmail() + " est deja dans vos contactes");
+            throw new RuntimeException(user.getEmail() + " is already in your contacts");
         }
         contacts.add(user);
         return this;

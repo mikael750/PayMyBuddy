@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -33,23 +31,5 @@ public class Account {
         this.iban = accountDTO.getIban();
         this.bic = accountDTO.getBic();
         this.amount = accountDTO.getAmount();
-    }
-
-    @ManyToMany(
-            cascade = CascadeType.PERSIST
-    )
-    private List<Account> accounts = new ArrayList<>();
-
-    /**
-     * Ajout un compte a l'utilisateur
-     * @param account
-     * @return
-     */
-    public Account addAccount(Account account){
-        if (accounts.contains(account)) {
-            throw new RuntimeException(account.getIban() + " is already registered");
-        }
-        accounts.add(account);
-        return this;
     }
 }

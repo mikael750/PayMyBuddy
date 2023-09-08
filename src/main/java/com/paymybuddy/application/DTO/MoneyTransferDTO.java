@@ -18,7 +18,7 @@ public class MoneyTransferDTO {
     String contactEmail;
 
     @NotNull
-    @DecimalMin(value = "0.01", message = "The Amount of money  can not be equal less then 0")
+    @DecimalMin(value = "0.01", message = "The Amount of money cannot be equal or less than 0")
     BigDecimal amount = BigDecimal.ZERO;
 
     public MoneyTransferDTO(String contact, BigDecimal valueOf) {
