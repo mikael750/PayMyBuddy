@@ -4,19 +4,12 @@ import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.models.Account;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
 
-    /**
-     * @param iban
-     * @return
-     */
-    List<AccountDTO> findAccountList(String iban);
+    Optional<Account> findAccountByIban(String iban);
 
-    /**
-     * @param accountDto
-     * @param iban
-     * @return
-     */
-    Account addAccount(AccountDTO accountDto, String iban);
+    Account saveAccount(AccountDTO accountDto);
+
 }

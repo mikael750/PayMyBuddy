@@ -19,25 +19,25 @@ public class AddAccountController {
     private AccountService accountService;
 
     @GetMapping(value = {"/addaccount"})
-    public String addAccountPage(Model addAccountFormDto, AccountDTO accountDTO) {
-        //addAccountFormDto.addAttribute("account_list", accountService.findAccountList(accountDTO.getIban()));//principal.getName()));
+    public String addAccountPage(Model addAccountFormDto, AccountDTO accountDTO) throws Exception {
         addAccountFormDto.addAttribute("add_account", new AccountDTO());
         return "addaccount";
     }
 
 
     @PostMapping("/addaccount")
-    public String addAccount(@Valid @ModelAttribute("add_account") AccountDTO accountDTO, BindingResult result, Model addAccountFormDto, Authentication principal) {
+    public String addAccount(@Valid @ModelAttribute("add_account") AccountDTO accountDTO, BindingResult result, Model addAccountFormDto) {
         if (result.hasErrors()) {
-            return addAccountPage(addAccountFormDto, accountDTO);
+            addAccountFormDto.addAttribute("add_account", accountDTO);
+            return "addaccount";
         }
-        try {
-            accountService.addAccount(accountDTO, accountDTO.getIban());
-        } catch (Exception e) {
-            addAccountFormDto.addAttribute("account_error", e.getMessage());
-            return addAccountPage(addAccountFormDto, accountDTO);
-        }
-        return "redirect:/addaccount?success";
 
+        try {
+            accountService.saveAccount(accountDTO);
+            return "redirect:/addaccount?success";
+        } catch (Exception e) {
+            result.rejectValue("iban", null, "An account already exist with the iban : " + accountDTO.getIban());
+            return "addaccount";
+        }
     }
 }

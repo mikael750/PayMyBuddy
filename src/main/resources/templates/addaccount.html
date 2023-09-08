@@ -113,9 +113,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "account_list : ${account_list}">
-            <td th:text = "${account_list.bic}"></td>
-            <td th:text = "${account_list.amount}"></td>
+        <tr th:each = "add_account : ${add_account}">
+            <td th:text = "${add_account.bic}"></td>
+            <td th:text = "${add_account.amount}"></td>
         </tr>
         </tbody>
     </table>

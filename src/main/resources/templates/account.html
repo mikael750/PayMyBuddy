@@ -68,6 +68,16 @@
             <p th:errors="*{amount}" class="text-danger"
                th:if="${#fields.hasErrors('amount')}"></p>
           </div>
+          </br>
+          <div class="form-group mb-3">
+            <select th:field="*{bic}">
+              <option value=""> -- select an account -- </option>
+              <option th:each="add_account : ${add_account}" th:value="${add_account.getBic()}" th:text="${add_account.getBic()}"></option>
+            </select>
+            <p th:errors="*{bic}" class="text-danger"
+               th:if="${#fields.hasErrors('bic')}"></p>
+          </div>
+          </br>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Transfer</button>
             <br/>

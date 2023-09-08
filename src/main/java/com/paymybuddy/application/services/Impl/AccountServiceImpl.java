@@ -17,33 +17,23 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-        /**
-         *{@inheritDoc}
-         */
     @Override
-    public List<AccountDTO> findAccountList(String iban) {
-        Optional<Account> userGetAccount = accountRepository.findByIban(iban);
-        if (userGetAccount.isEmpty()){
-            throw new UsernameNotFoundException("Account not found with iban: " + iban);
-        }
-        return userGetAccount.get().getAccounts()
-                .stream().map(AccountDTO::new)
-                .toList();
+    public Optional<Account> findAccountByIban(String iban) {
+        return accountRepository.findByIban(iban);
     }
 
     /**
      *{@inheritDoc}
-     * @return
      */
     @Override
-    public Account addAccount(AccountDTO accountDto, String iban) {
-        Account accountToAdd = accountRepository.findByIban(accountDto.getIban())
-                .orElseThrow(() -> new UsernameNotFoundException("Account not found with iban : " + iban));
-
-        Account accountToAddAccount = accountRepository.findByIban(iban)
-                .orElseThrow(() -> new UsernameNotFoundException("Account not found with iban : " + iban))
-                .addAccount(accountToAdd);
-
-        return accountRepository.save(accountToAddAccount);
+    public Account saveAccount(AccountDTO accountDto) {
+        Optional<Account> existingAccount = findAccountByIban(accountDto.getIban());
+        if (existingAccount.isPresent()){
+            throw new RuntimeException("The account of = " + accountDto.getBic() + " already in use !");
+        }
+        Account userAccount = new Account(accountDto);
+        return accountRepository.save(userAccount);
     }
+
+
 }

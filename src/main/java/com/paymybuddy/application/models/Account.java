@@ -20,10 +20,13 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     private String iban;
 
+    @Column(nullable = false, unique = true)
     private String bic;
 
+    @Column
     private BigDecimal amount;
 
     public Account(AccountDTO accountDTO){
