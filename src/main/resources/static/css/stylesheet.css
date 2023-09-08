@@ -1,3 +1,7 @@
+a.current{
+   background: blue;
+   border-radius: 30px;
+}
 .nav-item
 {
     display: flex;
