@@ -26,7 +26,7 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/account}">My Account</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/transaction}">Transaction</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/contact}">Contact</a>
-                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Log off</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Log out</a>
                 </li>
             </ul>
         </div>
@@ -73,12 +73,12 @@
                            th:if="${#fields.hasErrors('amount')}"></p>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="form-label">Reference of transaction</label>
+                        <label class="form-label">Type of transaction</label>
                         <input
                                 class="form-control"
                                 id="reference"
                                 name="reference"
-                                placeholder="Enter what kind of transfer it is"
+                                placeholder="Enter what kind of transfer it is, and a Description"
                                 th:field="*{transactionType}"
                                 type="text"
                         />
