@@ -28,17 +28,6 @@ public class MoneyTransferDTO {
 
     String transactionType;
 
-    /*
-    enum transactionType{
-        TRANSFER,
-        DEPOSIT,
-        RETRAIT
-    }
-
-    public transactionType[] getTransactionType() {
-        return transactionType.values();
-    }
-*/
     @Value("${application.fee}")
     private long valueFee;
 

@@ -1,6 +1,7 @@
 package com.paymybuddy.application.DTO;
 
 import com.paymybuddy.application.models.Transaction;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class TransactionDTO {
 
     private BigDecimal amount;
 
+    @Size(max = 500)
     private String transactionType;
 
     private String sender;
