@@ -19,9 +19,9 @@ public class ContactController {
     private UserService userService;
 
     @GetMapping(value =  {"/contact"})
-    public String contactPage(Model model, Authentication principal){
-        model.addAttribute("contact_list", userService.findContactList(principal.getName()));
-        model.addAttribute("add_contact", new ContactDTO());
+    public String contactPage(Model contactFormDTO, Authentication principal){
+        contactFormDTO.addAttribute("contact_list", userService.findContactList(principal.getName()));
+        contactFormDTO.addAttribute("add_contact", new ContactDTO());
         return "contact";
     }
 
