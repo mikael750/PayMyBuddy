@@ -72,7 +72,7 @@
           <div class="form-group mb-3">
             <select th:field="*{bic}">
               <option value=""> -- select an account -- </option>
-              <option th:each="add_account : ${add_account}" th:value="${add_account.getBic()}" th:text="${add_account.getBic()}"></option>
+              <option th:each="list_account : ${list_account}" th:value="${list_account.getBic()}" th:text="${list_account.getBic()}"></option>
             </select>
             <p th:errors="*{bic}" class="text-danger"
                th:if="${#fields.hasErrors('bic')}"></p>

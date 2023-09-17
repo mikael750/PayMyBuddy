@@ -1,6 +1,7 @@
 package com.paymybuddy.application.repository;
 
 import com.paymybuddy.application.models.Account;
+import com.paymybuddy.application.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,16 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
      * @return
      */
     Optional<Account> findByIban(String iban);
+
+    /**
+     * @param id
+     * @return
+     */
+    Optional<Account> findById(Integer id);
+
+    /**
+     * @param user
+     * @return
+     */
+    Optional<Account> findByUser(User user);
 }

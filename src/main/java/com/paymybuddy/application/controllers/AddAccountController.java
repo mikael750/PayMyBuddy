@@ -19,7 +19,7 @@ public class AddAccountController {
     private AccountService accountService;
 
     @GetMapping(value = {"/addaccount"})
-    public String addAccountPage(Model addAccountFormDto, AccountDTO accountDTO) throws Exception {
+    public String addAccountPage(Model addAccountFormDto, AccountDTO accountDTO) {
         addAccountFormDto.addAttribute("add_account", new AccountDTO());
         return "addaccount";
     }

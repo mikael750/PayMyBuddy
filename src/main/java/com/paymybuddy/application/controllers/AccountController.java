@@ -25,10 +25,11 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping(value =  {"/account"})
-    public String accountPage(Model accountFormDto, Authentication principal, AccountDTO accountDTO){
+    public String accountPage(Model accountFormDTO, Authentication principal, AccountDTO accountDTO){
         BigDecimal balance = userService.getBalance(principal.getName());
-        accountFormDto.addAttribute("transfer_amount", accountDTO);
-        accountFormDto.addAttribute("balance", balance);
+        accountFormDTO.addAttribute("transfer_amount", accountDTO);
+        accountFormDTO.addAttribute("list_account", accountService.getBankAccounts());
+        accountFormDTO.addAttribute("balance", balance);
         return "account";
     }
 
@@ -36,6 +37,7 @@ public class AccountController {
     public String account(@Valid @ModelAttribute("transfer_amount") AccountDTO accountDTO, BindingResult result, Model accountFormDTO, Authentication principal){
         BigDecimal balance = userService.getBalance(principal.getName());
         if (result.hasErrors()) {
+            accountFormDTO.addAttribute("list_account", accountService.getBankAccounts());
             accountFormDTO.addAttribute("transfer_amount", accountDTO);
             accountFormDTO.addAttribute("balance", balance);
             return "account";
@@ -44,6 +46,7 @@ public class AccountController {
             userService.bankTransfer(accountDTO, principal.getName());
             return "redirect:/account?success";
         } catch (Exception e) {
+            accountFormDTO.addAttribute("list_account", accountService.getBankAccounts());
             accountFormDTO.addAttribute("transfer_amount", accountDTO);
             accountFormDTO.addAttribute("balance", balance);
             result.rejectValue("amount", null, e.getMessage());

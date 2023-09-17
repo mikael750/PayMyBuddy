@@ -114,7 +114,7 @@ public class UserServiceTest {
         User user = new User(1, "test", "test", "test", "test", "test", BigDecimal.ZERO, null);
         User expectedUserAccount = new User(1, "test", "test", "test", "test", "test", BigDecimal.valueOf(100), null);
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
-        AccountDTO accountDTO = new AccountDTO("test","test",BigDecimal.valueOf(100));
+        AccountDTO accountDTO = new AccountDTO(user,"test","test",BigDecimal.valueOf(100));
         when(userRepository.save(expectedUserAccount)).thenReturn(expectedUserAccount);
 
         //WHEN

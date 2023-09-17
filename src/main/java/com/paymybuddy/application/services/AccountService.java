@@ -20,4 +20,17 @@ public interface AccountService {
      */
     Account saveAccount(AccountDTO accountDto);
 
+    /**
+     * Lists all bank accounts in database
+     *
+     * @return a list of bank accounts
+     */
+    List<Account> getBankAccounts();
+
+    /**
+     * Returns a bank account given an ID.
+     * @param id ID  bank account needed.
+     * @return a bank account if exists, empty optional otherwise.
+     */
+    Optional<Account> getBankAccountById(Integer id);
 }

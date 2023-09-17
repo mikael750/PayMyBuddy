@@ -18,6 +18,10 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(nullable = false, unique = true)
     private String iban;
 
@@ -28,6 +32,7 @@ public class Account {
     private BigDecimal amount;
 
     public Account(AccountDTO accountDTO){
+        this.user = accountDTO.getUser();
         this.iban = accountDTO.getIban();
         this.bic = accountDTO.getBic();
         this.amount = accountDTO.getAmount();

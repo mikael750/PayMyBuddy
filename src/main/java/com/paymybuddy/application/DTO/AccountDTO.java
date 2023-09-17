@@ -1,6 +1,7 @@
 package com.paymybuddy.application.DTO;
 
 import com.paymybuddy.application.models.Account;
+import com.paymybuddy.application.models.User;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDTO {
-    @NotNull
+
+    User user;
+
     String iban;
 
     @NotNull
@@ -22,10 +25,4 @@ public class AccountDTO {
     @NotNull
     @Digits(integer = 4, fraction = 2)
     BigDecimal amount;
-
-    public AccountDTO(Account account) {
-        iban = account.getIban();
-        bic = account.getBic();
-        amount = account.getAmount();
-    }
 }
