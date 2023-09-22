@@ -136,58 +136,52 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Returns provided user's bank account.
-     *
-     * @param user
-     *         user for which the bank account is needed.
-     *
-     * @return user bank account if exists, empty optional otherwise.
+     *{@inheritDoc}
      */
+    @Override
     public Optional<Account> getUserBankAccount(User user) {
         Assert.notNull(user, "User must not be null");
         return accountRepository.findByUser(user);
     }
 
-
     /**
-     * Deposits money to buddy account.
+     *{@inheritDoc}
      */
+    @Override
     @Transactional
     public void deposit(User user, String amount) {
         Assert.notNull(user, "User must not be null");
-        // if amount is still not valid after interface's validator, remove any negative signs
         amount = amount.replace("-", "");
-        // find user's bank account
         Optional<Account> bankAccount = accountRepository.findByUser(user);
-        // deposit cannot be done if the user does not own a bank account
+
         if (bankAccount.isEmpty()) {
-            throw new RuntimeException("The user does not have any bank account. Deposit can not be proceeded.");
+            throw new RuntimeException("The user does not have any bank account. Deposit cannot be proceeded.");
         }
-        // Subtract amount to deposit from bank account
+
         bankAccount.get().setAmount(bankAccount.get().getAmount().subtract(new BigDecimal(amount)));
-        // add amount to deposit to user's account
         user.setSolde(user.getSolde().add(new BigDecimal(amount)));
+
         userRepository.save(user);
     }
 
+
     /**
-     * Withdraws money to user's bank account.
+     *{@inheritDoc}
      */
+    @Override
     @Transactional
     public void withdraw(User user, String amount) {
         Assert.notNull(user, "User must not be null");
-        // if amount is still not valid after interface's validator, remove any negative signs
         amount = amount.replace("-", "");
-        // find user's bank account
         Optional<Account> bankAccount = accountRepository.findByUser(user);
-        // withdraw cannot be done if the user does not own a bank account
+
         if (bankAccount.isEmpty()) {
             throw new RuntimeException("The user does not have any bank account. Withdrawal can not be " + "proceeded.");
         }
-        // add amount to deposit from bank account
+
         bankAccount.get().setAmount(bankAccount.get().getAmount().add(new BigDecimal(amount)));
-        // subtract amount to deposit to user's account
         user.setSolde(user.getSolde().subtract(new BigDecimal(amount)));
+
         userRepository.save(user);
     }
 }

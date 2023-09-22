@@ -4,8 +4,10 @@ import com.paymybuddy.application.DTO.AccountDTO;
 import com.paymybuddy.application.DTO.ContactDTO;
 import com.paymybuddy.application.DTO.MoneyTransferDTO;
 import com.paymybuddy.application.DTO.UserDTO;
+import com.paymybuddy.application.models.Account;
 import com.paymybuddy.application.models.Transaction;
 import com.paymybuddy.application.models.User;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -66,4 +68,22 @@ public interface UserService {
      */
     Transaction transferMoney(MoneyTransferDTO moneyTransferDTO, String email);
 
+    /**
+     * Renvoie le compte bancaire de l'utilisateur
+     * @param user utilisateur pour lequel le compte bancaire est necessaire
+     * @return retourne le compte bancaire de l'utilisateur s'il existe, sinon c'est vide
+     */
+     Optional<Account> getUserBankAccount(User user);
+
+    /**
+     * Depose de l'argent sur le comte d'un utilisateur
+     */
+    @Transactional
+    void deposit(User user, String amount);
+
+    /**
+     * Retire de l'argent sur le compte de l'utilisateur
+     */
+    @Transactional
+    void withdraw(User user, String amount);
 }

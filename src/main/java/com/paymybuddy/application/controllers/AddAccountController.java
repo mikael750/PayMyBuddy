@@ -1,7 +1,6 @@
 package com.paymybuddy.application.controllers;
 
 import com.paymybuddy.application.DTO.AccountDTO;
-import com.paymybuddy.application.models.User;
 import com.paymybuddy.application.services.AccountService;
 import com.paymybuddy.application.services.UserService;
 import jakarta.validation.Valid;
@@ -13,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Optional;
 
 @Controller
 public class AddAccountController {

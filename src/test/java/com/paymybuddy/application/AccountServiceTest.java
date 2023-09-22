@@ -27,23 +27,23 @@ public class AccountServiceTest {
     private AccountRepository accountRepository;
 /*
     @Test
-    public void addContactTest() {
+    public void saveAccountTest() {
         //GIVEN
         Account account = new Account(1,"testiban","testbic", BigDecimal.valueOf(10.0), new ArrayList<>());
         //Account contact = new Account(2, "contact", "contact", "contact", "contact", "contact", BigDecimal.ONE, null);
-        AccountDTO accountDto = new AccountDTO("testiban","testbic", BigDecimal.valueOf(10.0));
-        when(accountRepository.findAllByIban("testiban")).thenReturn(Optional.of(account));
+        AccountDTO accountDto = new AccountDTO();
+        when(accountRepository.findByIban("testiban")).thenReturn(Optional.of(account));
         //when(accountRepository.findByIban("contact")).thenReturn(Optional.of(contact));
 
         //WHEN
-        accountService.addAccount(accountDto,"testiban");
+        accountService.saveAccount(accountDto);
 
         //THEN
         verify(accountRepository, times(1)).save(account);
-    }
-*//*
+    }*/
+/*
     @Test
-    public void findContactListTest() throws Exception {
+    public void findAccountListTest() throws Exception {
         //GIVEN
         Account account = new Account();
         Account bank = new Account();

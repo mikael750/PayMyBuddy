@@ -1,6 +1,5 @@
 package com.paymybuddy.application.DTO;
 
-import com.paymybuddy.application.models.Account;
 import com.paymybuddy.application.models.User;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
