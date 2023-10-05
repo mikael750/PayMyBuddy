@@ -46,4 +46,4 @@ mvn site
 ![diagrammeUmlPayMyBuddy](https://github.com/mikael750/PayMyBuddy/assets/91464417/797a2989-b4a6-46b0-9c04-4581e53993d3)
 
 ### Modèle physique de données
-![AppliPayMyBuddy](https://github.com/mikael750/PayMyBuddy/assets/91464417/4b4c5de0-a83f-4e4f-92ce-051072ca99f4)
+![MDPPayMyBuddy](https://github.com/mikael750/PayMyBuddy/assets/91464417/bb3764ee-3279-4625-bc8d-37e880f96e12) 
