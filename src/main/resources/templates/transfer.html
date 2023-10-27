@@ -24,7 +24,6 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
                     <a class="nav-link active current" aria-current="page" th:href="@{/transfer}">Transfer</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/account}">My Account</a>
-                    <a class="nav-link active" aria-current="page" th:href="@{/transaction}">Transaction</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/contact}">Contact</a>
                     <a class="nav-link active" aria-current="page" th:href="@{/logout}">Log out</a>
                 </li>
@@ -100,6 +99,40 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+    </br>
+    <div class="row col-md-10">
+        <h2>List of transactions</h2>
+    </div>
+    </br>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Amount</th>
+            <th>Type of transaction</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "transaction : ${transactionDTOPage.content}">
+            <td th:text = "${transaction.amount}"></td>
+            <td th:text = "${transaction.transactionType}"></td>
+            <td th:text = "${transaction.sender}"></td>
+            <td th:text = "${transaction.receiver}"></td>
+            <td th:text = "${transaction.date}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="page">
+        <div th:if="${transactionDTOPage.totalPages > 0}" class="pagination"
+             th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/transfer(size=${transactionDTOPage.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==transactionDTOPage.number + 1} ? active"
+               class="test"></a>
         </div>
     </div>
 </div>
