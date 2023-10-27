@@ -18,12 +18,14 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     Optional<Account> findByIban(String iban);
 
     /**
+     * Trouve un compte avec l'id
      * @param id
      * @return
      */
     Optional<Account> findById(Integer id);
 
     /**
+     * Trouve un compte avec l'utilisateur
      * @param user
      * @return
      */
